@@ -123,6 +123,13 @@ share() { local share="$1" path="$2" browsable="${3:-yes}" ro="${4:-yes}" \
     echo "   browsable = $browsable" >>$file
     echo "   read only = $ro" >>$file
     echo "   guest ok = $guest" >>$file
+    echo "   read raw = yes" >>$file
+    echo "   write raw = yes" >>$file
+    echo "   socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072" >>$file
+    echo "   min receivefile size = 16384" >>$file
+    echo "   use sendfile = true" >>$file
+    echo "   aio read size = 16384" >>$file
+    echo "   aio write size = 16384" >>$file
     [[ ${VETO:-yes} == no ]] || {
         echo -n "   veto files = /.apdisk/.DS_Store/.TemporaryItems/" >>$file
         echo -n ".Trashes/desktop.ini/ehthumbs.db/Network Trash Folder/" >>$file
