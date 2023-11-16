@@ -31,8 +31,13 @@ RUN apk --no-cache --no-progress upgrade && \
     echo '   printcap name = /dev/null' >>$file && \
     echo '   disable spoolss = yes' >>$file && \
     echo '   strict locking = no' >>$file && \
-    echo '   aio read size = 0' >>$file && \
-    echo '   aio write size = 0' >>$file && \
+    echo "   read raw = yes" >>$file && \
+    echo "   write raw = yes" >>$file && \
+    echo "   socket options = TCP_NODELAY IPTOS_LOWDELAY SO_RCVBUF=131072 SO_SNDBUF=131072" >>$file && \
+    echo "   min receivefile size = 16384" >>$file && \
+    echo "   use sendfile = true" >>$file && \
+    echo "   aio read size = 16384" >>$file && \
+    echo "   aio write size = 16384" >>$file && \
     echo '   vfs objects = catia fruit recycle streams_xattr' >>$file && \
     echo '   recycle:keeptree = yes' >>$file && \
     echo '   recycle:maxsize = 0' >>$file && \
